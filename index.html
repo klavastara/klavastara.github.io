@@ -26,7 +26,7 @@
 
         const modelNode = xktLoader.load({
             id: "output",
-            src: "./data/output.xkt",
+            src: "output.xkt",
 			saoEnabled: true,
             edges: true,
 			dtxEnabled: true
@@ -39,7 +39,27 @@
             camera.eye = [-2.37, 18.97, -26.12];
             camera.look = [10.97, 5.82, -11.22];
             camera.up = [0.36, 0.83, 0.40];
+			
+			// Пример применения конфигурации
+        viewer.setConfigs({
+            "showSpaces": false,
+            "selectedGlowThrough": true,
+            "highlightGlowThrough": true
         });
+    });
+	
+	// Пример функции для работы с URL-параметрами
+    function getRequestParams() {
+        const vars = {};
+        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+            vars[key] = value;
+        });
+        return vars;
+    }
+
+    // Вызов функции для получения параметров
+    const params = getRequestParams();
+    console.log(params);
     </script>
 </body>
 </html>
