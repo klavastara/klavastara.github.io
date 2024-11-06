@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xeokit BIM Viewer</title>
+    <style>
+        /* Убедитесь, что ваш canvas занимает всю страницу */
+        body, html { margin: 0; padding: 0; height: 100%; }
+        #myCanvas { width: 100%; height: 100%; display: block; }
+    </style>
+</head>
+<body>
+    <!-- Элемент canvas для отображения модели -->
+    <canvas id="myCanvas"></canvas>
+
+    <!-- Подключаем скрипт с логикой работы xeokit -->
+    <script type="module">
+        import {Viewer, XKTLoaderPlugin} from "https://cdn.jsdelivr.net/npm/@xeokit/xeokit-sdk@1/dist/xeokit-sdk.es.min.js";
+
+        const viewer = new Viewer({
+            canvasId: "myCanvas"
+        });
+
+        const xktLoader = new XKTLoaderPlugin(viewer);
+
+        const modelNode = xktLoader.load({
+            id: "output",
+            src: "/path/to/xeokit-bim-viewer/data/output.xkt",
+			saoEnabled: true,
+            edges: true,
+			dtxEnabled: true
+        });
+
+        modelNode.on("loaded", () => {
+            const scene = viewer.scene;
+            const camera = scene.camera;
+
+            camera.eye = [-2.37, 18.97, -26.12];
+            camera.look = [10.97, 5.82, -11.22];
+            camera.up = [0.36, 0.83, 0.40];
+        });
+    </script>
+</body>
+</html>
